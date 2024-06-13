@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Yangilash{% endblock %}
+
+{% block content %}
+<div class="max-w-md mx-auto bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 text-center">
+
+    <h1>Yangilash</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="btn btn-warning" type="submit">Saqlash</button>
+    </form></div>
+{% endblock %}

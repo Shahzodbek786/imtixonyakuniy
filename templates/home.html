@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% block title %}Bosh sahifa{% endblock title %}
+{% block content %}
+        {% if user.is_authenticated %}
+            {{ user.username }}!
+        <form action="{% url 'logout' %}" method="post"> {% csrf_token %}
+            <button type="submit" class="btn btn-primary">Chiqib ketish</button>
+        </form>
+    {% else %}
+        <p>Saytga kirmagansiz</p>
+        <a href="{% url 'login' %}">Kirish</a> |
+        <a href="{% url 'signup' %}">Ro'yxatdan o'tish</a>
+    {% endif %}
+
+
+<section class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="candidate-list-widgets mb-4">
+
+                       <p class="alert-message">{{ request.user.username }}!</p>
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="candidate-list">
+                    {% if transactions %}
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Transaction Type</th>
+                                    <th scope="col">Summa</th>
+                                    <th scope="col">Qo'shilgan sana</th>
+                                    <th scope="col">Yangilangan sana</th>
+                                    <th scope="col">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for transaction in transactions %}
+                                    <tr>
+                                        <th scope="row">{{ forloop.counter }}</th>
+                                        <td><span class="font-weight-bold text-primary">{{ transaction.transaction_type }}</span></td>
+                                        <td>{{ transaction.amount }} so'm</td>
+                                        <td>{{ transaction.date_added }}</td>
+                                        <td>{{ transaction.date_modified }}</td>
+                                        <td>
+                                            <a class="btn btn-warning" href="{% url 'edit_transaction' transaction.pk %}">Yangilash</a>
+                                            <a class="btn btn-danger" href="{% url 'delete_transaction' transaction.pk %}">O'chirish</a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    {% else %}
+                        <div class="text-center">
+                            <p class="alert-message">Kirim/Chiqim mavjud emas.</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <style>
+    .alert-message {
+        font-size: 1.5rem;
+        color: #ff6b6b;
+        font-weight: bold;
+    }
+    </style>
+
+{% endblock content %}

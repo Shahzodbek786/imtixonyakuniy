@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Delete{% endblock %}
+
+{% block content %}
+<div class="max-w-md mx-auto bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 text-center">
+    <h1 class="text-2xl font-bold mb-4">{{ transaction.transaction_type }} ni o'chirish!</h1>
+    <p class="mb-4">Anniq bu {{ transaction.transaction_type }} ni o'chirmoqchimisiz?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button class=" btn-danger g-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">O'chirish</button>
+    </form>
+</div>
+{% endblock %}
